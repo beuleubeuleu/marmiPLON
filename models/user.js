@@ -11,7 +11,8 @@ const userSchema = new mongoose.Schema({
       },
       password         : { type: String, required: true },
       courses          : [ { type: mongoose.Schema.Types.ObjectId, ref: "Course" } ],
-      subscribedAccount: { type: mongoose.Schema.Types.ObjectId, ref: "Subscriber" }
+      subscribedAccount: { type: mongoose.Schema.Types.ObjectId, ref: "Subscriber" },
+      token            : { type: String }
     },
     { timestamps: true })
 
