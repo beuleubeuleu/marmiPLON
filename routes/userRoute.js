@@ -14,8 +14,8 @@ userRouter.get('/logout',isAuth, userController.logoutUser);
 
 userRouter.get('/:id', userController.getUserById);
 
-userRouter.put('/:id/update', userController.updateUser);
+userRouter.put('/:id/update',isAuth, userController.updateUser);
 
-userRouter.delete('/:id/delete', userController.deleteUser);
+userRouter.delete('/:id/delete',isAuth, userController.deleteUser);
 
 module.exports = userRouter
