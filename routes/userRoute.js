@@ -4,13 +4,13 @@ const userRouter     = express.Router();
 const userController = require('../controllers/userController')
 const isAuth         = require("../middleware/auth");
 
-userRouter.get('/',isAuth, userController.getUsers);
+userRouter.get('/', userController.getUsers);
 
 userRouter.post('/create', userController.createUser);
 
 userRouter.post('/login', userController.loginUser);
 
-userRouter.get('/logout',isAuth, userController.logoutUser);
+userRouter.get('/logout', userController.logoutUser);
 
 userRouter.get('/:id', userController.getUserById);
 
