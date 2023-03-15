@@ -14,7 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 
 module.exports = app;
 
-app.use("/courses", courseRouter)
-app.use("/users", userRouter)
-app.use("/subscribers", subscriberRouter)
+app.use("/api/courses", courseRouter)
+app.use("/api/users", userRouter)
+app.use("/api/subscribers", subscriberRouter)
 app.use("/*", errorHandler)
