@@ -4,7 +4,7 @@ const userRouter     = express.Router();
 const userController = require('../controllers/userController')
 const isAuth         = require("../middleware/auth");
 
-userRouter.get('/', userController.getUsers);
+userRouter.get('/',isAuth, userController.getUsers);
 
 userRouter.post('/create', userController.createUser);
 
@@ -14,8 +14,8 @@ userRouter.get('/logout',isAuth, userController.logoutUser);
 
 userRouter.get('/:id', userController.getUserById);
 
-userRouter.put('/:id/update',isAuth, userController.updateUser);
+userRouter.put('/:id/update', isAuth, userController.updateUser);
 
-userRouter.delete('/:id/delete',isAuth, userController.deleteUser);
+userRouter.delete('/:id/delete', isAuth, userController.deleteUser);
 
 module.exports = userRouter

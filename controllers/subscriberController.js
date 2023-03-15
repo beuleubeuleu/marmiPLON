@@ -10,6 +10,7 @@ exports.getSubscribers = async(req, res) => {
   }
 }
 
+//If already a subscriber it logins, else it creates a new subscriber
 exports.createSubscriber = async(req, res) => {
   const subscriber   = new Subscriber({
     name   : req.body.name,

@@ -1,4 +1,5 @@
 const User   = require('../models/user');
+const Subscriber = require("../models/subscriber")
 const bcrypt = require('bcryptjs');
 const jwt    = require('jsonwebtoken');
 
@@ -21,14 +22,22 @@ exports.createUser = async(req, res) => {
       password: req.body.password
     });
 
+
     const oldUser = await User.findOne({ email: user.email })
     if ( oldUser ) return res.status(200).send({ success: false, message: "user already exists" })
 
     const salt    = await bcrypt.genSalt(10)
     user.password = await bcrypt.hash(user.password, salt)
+
+    const subscribedAccount = await Subscriber.findOne({email: user.email})
+    if (subscribedAccount){
+      user.subscribedAccount = subscribedAccount
+    }
+
     await user.save()
 
-    user.token = jwt.sign({ user_id: user.id, user_email: user.email }, process.env.JWT_SECRET, { expiresIn: "2h" })
+
+      user.token = jwt.sign({ user_id: user.id, user_email: user.email }, process.env.JWT_SECRET, { expiresIn: "2h" })
     res.send(user)
   } catch ( err ) {
     res.send(err)
@@ -63,11 +72,11 @@ exports.loginUser = async(req, res) => {
 }
 
 exports.logoutUser = async(req, res) => {
-  if ( req.headers && req.headers["x-access-token"] ) {
-    console.log(req.headers["x-access-token"])
-    res.send("ok")
-  }
-  res.send("not ok")
+    try {
+      req.logout();
+    } catch ( err ) {
+      res.send(err)
+    }
 }
 
 exports.getUserById = async(req, res) => {

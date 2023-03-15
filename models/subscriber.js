@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const subscriptionSchema = new mongoose.Schema({
+const subscriberSchema = new mongoose.Schema({
       name   : {
         type    : String,
         required: true
@@ -16,15 +16,15 @@ const subscriptionSchema = new mongoose.Schema({
         min : [ 10000, "Zip code Postal too short" ],
         max : 99999
       },
-      courses: [
+      course:
         {
           type: mongoose.Schema.Types.ObjectId,
           ref : "Course"
         }
-      ]
+
     },
     {
       timestamps: true
     })
 
-module.exports = mongoose.model('Subscription', subscriptionSchema);
+module.exports = mongoose.model('Subscriber', subscriberSchema);
